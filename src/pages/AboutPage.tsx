@@ -1,9 +1,11 @@
 import React from 'react';
+import Header from '../layout/Header';
 
 const AboutPage = () => {
   return (
     <div>
-      <h1>About Us Page</h1>
+      <Header title="About Us" />
+      <h1>About Us</h1>
     </div>
   );
 };
