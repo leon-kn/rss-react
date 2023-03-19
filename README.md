@@ -1,1 +1,1 @@
-React training repo
+React tasks repository
