@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid grey;
+}
+
+.header__title {  
+}
+
+.navbar {
+  /* display: flex; */
+  /* list-style: none; */
+  padding: 0;
+}
+
+.navbar__item {}
+
+.navbar__link {}
+
+.navbar__link.active {
+  color: red;
+}

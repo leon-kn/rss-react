@@ -13,7 +13,7 @@ describe('Home Page', () => {
     );
     expect(
       screen.getByRole('heading', {
-        level: 1,
+        level: 2,
       })
     ).toHaveTextContent('Home Page');
   });
