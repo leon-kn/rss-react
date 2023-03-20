@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "npx eslint .",
+    "lint": "npx eslint src",
     "test": "vitest --coverage"
   },
   "dependencies": {
