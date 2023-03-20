@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { ProductItem } from 'types/ProductItem';
 
 export default class Card extends Component<ProductItem, object> {

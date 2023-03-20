@@ -1,8 +1,8 @@
-import React from 'react';
+import { Component } from 'react';
 
 type PropType = Record<string, never>;
 type StateType = { value: string };
-class SearchBar extends React.Component<PropType, StateType> {
+class SearchBar extends Component<PropType, StateType> {
   constructor(props: PropType) {
     super(props);
     this.state = { value: localStorage.getItem('value') ? localStorage.getItem('value')! : '' };

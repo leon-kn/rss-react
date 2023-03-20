@@ -3,7 +3,6 @@ import AboutPage from '../pages/AboutPage';
 import HomePage from '../pages/HomePage';
 import NotFoundPage from '../pages/NotFoundPage';
 import { Routes, Route } from 'react-router-dom';
-import React from 'react';
 
 const AppRouter = () => {
   return (

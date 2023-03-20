@@ -1,8 +1,8 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,12 +10,22 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./src/setupTests.ts'],
+    setupFiles: './src/tests/setupTests.ts',
     coverage: {
+      enabled: true,
       provider: 'c8',
-      all: true,
-      skipFull: true,
       reporter: 'text',
+      all: true,
+      include: ['src//'],
+      exclude: [
+        'src/.{ts,tsx}',
+        'src/setupTests.ts',
+        'src/vite-env.d.ts',
+        'src/assets',
+        'src/enum',
+        'src/routes',
+        'src/types',
+      ],
     },
   },
 });

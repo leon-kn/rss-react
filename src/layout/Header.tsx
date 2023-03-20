@@ -1,5 +1,4 @@
 import { AppRoutes } from '../enum/AppRoutes';
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Header = ({ title }: { title: string }) => {
