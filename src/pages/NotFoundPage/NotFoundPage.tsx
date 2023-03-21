@@ -1,4 +1,4 @@
-import { AppRoutes } from '../enum/AppRoutes';
+import { AppRoutes } from 'src/enum/AppRoutes';
 import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {

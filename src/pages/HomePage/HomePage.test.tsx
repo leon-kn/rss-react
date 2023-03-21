@@ -2,7 +2,7 @@ import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import HomePage from './HomePage';
 import { BrowserRouter } from 'react-router-dom';
-import data from '../assets/data';
+import data from 'src/assets/data';
 
 describe('Home Page', () => {
   it('Render Home Page', () => {

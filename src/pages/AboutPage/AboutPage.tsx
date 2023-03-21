@@ -1,4 +1,4 @@
-import Header from '../layout/Header';
+import Header from 'src/layout/Header';
 
 const AboutPage = () => {
   return (

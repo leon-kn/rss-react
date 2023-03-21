@@ -1,8 +1,9 @@
-import { Component } from 'react';
-import { ProductItem } from 'types/ProductItem';
 import './Card.css';
 
-export default class Card extends Component<ProductItem, object> {
+import { Component } from 'react';
+import { ProductItem } from 'src/types/ProductItem';
+
+class Card extends Component<ProductItem, object> {
   render() {
     return (
       <div className="card">
@@ -13,3 +14,5 @@ export default class Card extends Component<ProductItem, object> {
     );
   }
 }
+
+export default Card;

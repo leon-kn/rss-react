@@ -1,4 +1,4 @@
-import { ProductItem } from '../types/ProductItem';
+import { ProductItem } from 'src/types/ProductItem';
 
 const data: { products: ProductItem[] } = {
   products: [

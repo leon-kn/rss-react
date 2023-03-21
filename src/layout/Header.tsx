@@ -1,4 +1,4 @@
-import { AppRoutes } from '../enum/AppRoutes';
+import { AppRoutes } from 'src/enum/AppRoutes';
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 

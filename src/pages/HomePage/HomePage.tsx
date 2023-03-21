@@ -1,8 +1,9 @@
-import SearchBar from '../components/SearchBar';
-import Header from '../layout/Header';
-import data from '../assets/data';
-import Card from '../components/Card';
 import './HomePage.css';
+
+import Card from 'src/components/Card/Card';
+import Header from 'src/layout/Header';
+import SearchBar from 'src/components/SearchBar';
+import data from 'src/assets/data';
 
 const HomePage = () => {
   return (
