@@ -12,9 +12,17 @@ class SearchBar extends Component<PropType, StateType> {
     localStorage.setItem('value', this.state.value);
   }
 
+  handleFocus = (e: React.FocusEvent<HTMLInputElement>): void => {
+    console.log(e.currentTarget);
+  };
+
   render() {
     return (
       <input
+        type="text"
+        name="text"
+        placeholder="input"
+        onFocus={this.handleFocus}
         defaultValue={this.state.value}
         onChange={(e) => {
           this.setState({ value: e.target.value });

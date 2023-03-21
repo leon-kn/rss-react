@@ -17,6 +17,11 @@ const Header = ({ title }: { title: string }) => {
             About Us
           </NavLink>
         </li>
+        <li className="navbar__item">
+          <NavLink to={AppRoutes.Form} className="navbar__link">
+            Form
+          </NavLink>
+        </li>
       </ul>
     </div>
   );
