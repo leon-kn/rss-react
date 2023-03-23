@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
+import styles from './FormField.module.css';
 
 interface PropsType {
   type: 'text' | 'date' | 'checkbox' | 'file';
-  id: 'textInput' | 'dateInput' | 'checkboxInput' | 'switchInput' | 'fileInput';
-  name: 'name' | 'date' | 'consent' | 'gender' | 'avatar';
-  label:
-    | 'Name'
-    | 'Birthday'
-    | 'I consent to my personal data'
-    | 'Specify your gender'
-    | 'Upload your avatar';
+  id: string;
+  name: string;
+  label: string;
   elementRef: React.RefObject<HTMLInputElement>;
+  error?: string;
 }
 type StateType = Record<string, never>;
 
 class FormField extends Component<PropsType, StateType> {
   render() {
     return (
-      <div>
+      <div className={styles.div}>
         <label htmlFor={this.props.id}>{this.props.label}</label>
         <input
           type={this.props.type}
@@ -25,6 +22,7 @@ class FormField extends Component<PropsType, StateType> {
           name={this.props.name}
           ref={this.props.elementRef}
         ></input>
+        <label htmlFor={this.props.id}>{this.props.error}</label>
       </div>
     );
   }

@@ -17,6 +17,7 @@ class FormSelector extends Component<PropsType, StateType> {
           <option value="russia">Russia</option>
           <option value="usa">USA</option>
         </select>
+        <label htmlFor="selector">Error message</label>
       </div>
     );
   }
