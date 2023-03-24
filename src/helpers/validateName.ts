@@ -1,5 +1,4 @@
 function containsOnlyLetters(string: string): boolean {
-  console.log(/\d/.test(string));
   return /\d/.test(string);
 }
 
@@ -26,6 +25,5 @@ export function validateName<T>(
   if (name.length === 0) {
     error = 'You did not specify your name';
   }
-  console.log(error);
   setError((prevState) => ({ ...prevState, errorName: error }));
 }

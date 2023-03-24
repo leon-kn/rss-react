@@ -2,7 +2,11 @@ import React, { SyntheticEvent } from 'react';
 import { Component } from 'react';
 import FormField from 'src/components/Form/FormField';
 import FormSelector from 'src/components/Form/FormSelector';
+import FormSwitcher from 'src/components/Form/FormSwitcher';
+import { validateDate } from 'src/helpers/validateDate';
 import { validateName } from 'src/helpers/validateName';
+import { validatePermission } from 'src/helpers/validatePermission';
+import { validateCountry } from 'src/helpers/validateCountry';
 import Header from 'src/layout/Header';
 import { FormItem } from 'src/types/FormItem';
 
@@ -10,14 +14,12 @@ type PropsType = Record<string, never>;
 interface StateType {
   cards: FormItem[];
   errorName: string;
+  errorDate: string;
+  errorSelector: string;
+  errorCheckbox: string;
+  errorSwitcher: string;
 }
 type InputRef = React.RefObject<HTMLInputElement>;
-
-function validateDate<T>(date: string, setError: React.Dispatch<React.SetStateAction<T>>) {
-  const error = '';
-
-  
-}
 
 class FormPage extends Component<PropsType, StateType> {
   private textInput: InputRef;
@@ -29,7 +31,14 @@ class FormPage extends Component<PropsType, StateType> {
 
   constructor(props: PropsType) {
     super(props);
-    this.state = { cards: [], errorName: '' };
+    this.state = {
+      cards: [],
+      errorName: '',
+      errorDate: '',
+      errorSelector: '',
+      errorCheckbox: '',
+      errorSwitcher: '',
+    };
     this.textInput = React.createRef();
     this.dateInput = React.createRef();
     this.selector = React.createRef();
@@ -42,8 +51,11 @@ class FormPage extends Component<PropsType, StateType> {
   handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
     validateName<StateType>(this.textInput.current!.value, this.setState.bind(this));
+    validateDate<StateType>(this.dateInput.current!.value, this.setState.bind(this));
+    validateCountry<StateType>(this.selector.current!.value, this.setState.bind(this));
+    validatePermission<StateType>(this.checkboxInput.current!.checked, this.setState.bind(this));
     console.log(this.state);
-    console.log(this.dateInput.current!.value);
+    console.log(this.checkboxInput.current!.checked);
   }
 
   render() {
@@ -65,21 +77,25 @@ class FormPage extends Component<PropsType, StateType> {
             name="date"
             label="Birthday"
             elementRef={this.dateInput}
+            error={this.state.errorDate}
           />
-          <FormSelector elementRef={this.selector} />
+          <FormSelector elementRef={this.selector} error={this.state.errorSelector} />
           <FormField
             type="checkbox"
             id="checkboxInput"
             name="consent"
             label="I consent to my personal data"
             elementRef={this.checkboxInput}
+            error={this.state.errorCheckbox}
           />
-          <FormField
-            type="checkbox"
-            id="switchInput"
+          <FormSwitcher
+            type="radio"
             name="gender"
-            label="Specify your gender"
-            elementRef={this.switchInput}
+            firstValue="male"
+            secondValue="female"
+            legend="Specify your gender:"
+            // elementRef={this.switchInput}
+            error={this.state.errorSwitcher}
           />
           <FormField
             type="file"

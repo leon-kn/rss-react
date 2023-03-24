@@ -21,7 +21,7 @@ class FormField extends Component<PropsType, StateType> {
           id={this.props.id}
           name={this.props.name}
           ref={this.props.elementRef}
-        ></input>
+        />
         <label htmlFor={this.props.id}>{this.props.error}</label>
       </div>
     );
