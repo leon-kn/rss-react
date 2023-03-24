@@ -11,9 +11,9 @@ const HomePage = () => {
       <h2>Home Page</h2>
       <SearchBar />
       <div className={styles.cards}>
-        {data.products.map((card) => {
-          return <Card key={card.id} {...card} />;
-        })}
+        {data.products.map((card) => (
+          <Card key={card.id} {...card} />
+        ))}
       </div>
     </div>
   );

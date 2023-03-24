@@ -1,17 +1,19 @@
 import React, { SyntheticEvent } from 'react';
 import { Component } from 'react';
+import FormCard from 'src/components/FormCard/FormCard';
 import FormField from 'src/components/Form/FormField';
+import { FormItem } from 'src/types/FormItem';
+import FormSelector from 'src/components/Form/FormSelector';
 import FormSwitcher from 'src/components/Form/FormSwitcher';
+import Header from 'src/layout/Header';
+import Modal from 'src/components/Modal';
+import { validateCountry } from 'src/helpers/validateCountry';
 import { validateDate } from 'src/helpers/validateDate';
+import { validateFile } from 'src/helpers/validateFile';
+import { validateGender } from 'src/helpers/validateGender';
 import { validateName } from 'src/helpers/validateName';
 import { validatePermission } from 'src/helpers/validatePermission';
-import { validateCountry } from 'src/helpers/validateCountry';
-import Header from 'src/layout/Header';
-import { FormItem } from 'src/types/FormItem';
-import { validateGender } from 'src/helpers/validateGender';
-import FormSelector from 'src/components/Form/FormSelector';
-import { validateFile } from 'src/helpers/validateFile';
-import Modal from 'src/components/Modal';
+import styles from './FormPage.module.css';
 
 type PropsType = Record<string, never>;
 interface StateType {
@@ -57,11 +59,6 @@ class FormPage extends Component<PropsType, StateType> {
     this.inputSwitchFemale = React.createRef();
     this.inputFile = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.checkState = this.checkState.bind(this);
-  }
-
-  checkState() {
-    console.log(this.state);
   }
 
   handleSubmit(e: SyntheticEvent) {
@@ -90,7 +87,7 @@ class FormPage extends Component<PropsType, StateType> {
       name: this.inputText.current!.value,
       birthday: this.inputDate.current!.value,
       country: this.inputSelector.current!.value,
-      gender: this.inputSwitchMale.current!.checked ? 'male' : 'female',
+      gender: this.inputSwitchMale.current!.checked ? 'Male' : 'Female',
       avatar: this.inputFile.current!.files![0],
     };
 
@@ -105,21 +102,18 @@ class FormPage extends Component<PropsType, StateType> {
       this.setState({ modal: false });
     }, 2000);
   }
-  //Там ref.current.files[0], и потом его в блоб превратить
-  // у тебя в инпуте файла будет блоб файла лежать, его передавай в карточку для img в атрибут src
-  // двоичные данные файла)
 
   render() {
     return (
       <div>
-        <button onClick={this.checkState}>State</button>
+        {this.state.modal && <Modal />}
         <Header title="Form Page" />
-        <form ref={this.form}>
+        <form ref={this.form} className={styles.form}>
           <FormField
             type="text"
             id="inputText"
             name="name"
-            label="Name"
+            label="Name:"
             elementRef={this.inputText}
             error={this.state.errorName}
           />
@@ -127,7 +121,7 @@ class FormPage extends Component<PropsType, StateType> {
             type="date"
             id="inputDate"
             name="date"
-            label="Birthday"
+            label="Birthday:"
             elementRef={this.inputDate}
             error={this.state.errorDate}
           />
@@ -143,8 +137,8 @@ class FormPage extends Component<PropsType, StateType> {
           <FormSwitcher
             type="radio"
             name="gender"
-            firstValue="male"
-            secondValue="female"
+            firstValue="Male"
+            secondValue="Female"
             legend="Specify your gender:"
             elementRefMale={this.inputSwitchMale}
             elementRefFemale={this.inputSwitchFemale}
@@ -160,7 +154,11 @@ class FormPage extends Component<PropsType, StateType> {
           />
           <input type="submit" value="Submit" onClick={this.handleSubmit} />
         </form>
-        {this.state.modal && <Modal />}
+        <div className={styles.cards}>
+          {this.state.cards.map((card, index) => (
+            <FormCard key={index} {...card} />
+          ))}
+        </div>
       </div>
     );
   }
