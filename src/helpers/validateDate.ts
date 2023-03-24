@@ -1,4 +1,7 @@
-export function validateDate<T>(date: string, setError: React.Dispatch<React.SetStateAction<T>>) {
+export function validateDate<T>(
+  date: string,
+  setError: React.Dispatch<React.SetStateAction<T>>
+): boolean {
   let error = '';
 
   if ((date.length === 10 && Number(date.slice(0, 4)) >= 2024) || date.length > 10) {
@@ -10,4 +13,6 @@ export function validateDate<T>(date: string, setError: React.Dispatch<React.Set
   }
 
   setError((prevState) => ({ ...prevState, errorDate: error }));
+
+  return error ? false : true;
 }

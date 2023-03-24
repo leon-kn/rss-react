@@ -1,7 +1,7 @@
 export function validatePermission<T>(
   value: boolean,
   setError: React.Dispatch<React.SetStateAction<T>>
-) {
+): boolean {
   let error = '';
 
   if (!value) {
@@ -9,4 +9,6 @@ export function validatePermission<T>(
   }
 
   setError((prevState) => ({ ...prevState, errorCheckbox: error }));
+
+  return error ? false : true;
 }

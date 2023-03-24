@@ -1,4 +1,7 @@
 export interface FormItem {
   name: string;
-  date: string;
+  birthday: string;
+  country: string;
+  gender: string;
+  avatar: File;
 }

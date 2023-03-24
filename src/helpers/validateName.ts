@@ -5,7 +5,7 @@ function containsOnlyLetters(string: string): boolean {
 export function validateName<T>(
   name: string,
   setError: React.Dispatch<React.SetStateAction<T>>
-): void {
+): boolean {
   let error = '';
 
   if (name.length < 4) {
@@ -25,5 +25,8 @@ export function validateName<T>(
   if (name.length === 0) {
     error = 'You did not specify your name';
   }
+
   setError((prevState) => ({ ...prevState, errorName: error }));
+
+  return error ? false : true;
 }

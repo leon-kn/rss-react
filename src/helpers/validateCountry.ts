@@ -1,7 +1,7 @@
 export function validateCountry<T>(
   country: string,
   setError: React.Dispatch<React.SetStateAction<T>>
-) {
+): boolean {
   let error = '';
 
   if (!country) {
@@ -9,4 +9,6 @@ export function validateCountry<T>(
   }
 
   setError((prevState) => ({ ...prevState, errorSelector: error }));
+
+  return error ? false : true;
 }
