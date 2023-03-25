@@ -90,6 +90,7 @@ class FormPage extends Component<PropsType, StateType> {
       gender: this.inputSwitchMale.current!.checked ? 'Male' : 'Female',
       avatar: this.inputFile.current!.files![0],
     };
+    console.log(this.inputFile.current!.files![0]);
 
     if (name && date && country && permission && gender && file) {
       this.setState((prevState) => ({

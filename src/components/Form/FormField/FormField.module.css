@@ -13,9 +13,6 @@
   font-weight: 500;
 }
 
-.input__field {
-}
-
 .input__error {
   display: block;
   color: red;

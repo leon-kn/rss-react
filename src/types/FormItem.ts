@@ -3,5 +3,5 @@ export interface FormItem {
   birthday: string;
   country: string;
   gender: string;
-  avatar: File;
+  avatar: unknown;
 }

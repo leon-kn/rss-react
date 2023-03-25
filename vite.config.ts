@@ -31,6 +31,7 @@ export default defineConfig({
         'src/routes',
         'src/types',
         '**/index.ts',
+        'src/main.tsx',
       ],
     },
   },
