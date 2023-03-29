@@ -6,7 +6,7 @@ const NotFoundPage = () => {
     <div>
       <h1>Page not Found</h1>
       <button>
-        <Link to={AppRoutes.Home}>to Home Page</Link>
+        <Link to={AppRoutes.About}>to Home Page</Link>
       </button>
     </div>
   );

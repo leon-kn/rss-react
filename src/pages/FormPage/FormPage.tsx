@@ -5,7 +5,6 @@ import FormField from 'src/components/Form/FormField';
 import { FormItem } from 'src/types/FormItem';
 import FormSelector from 'src/components/Form/FormSelector';
 import FormSwitcher from 'src/components/Form/FormSwitcher';
-import Header from 'src/layout/Header';
 import Modal from 'src/components/Modal';
 import { validateCountry } from 'src/helpers/validateCountry';
 import { validateDate } from 'src/helpers/validateDate';
@@ -108,7 +107,6 @@ class FormPage extends Component<PropsType, StateType> {
     return (
       <div>
         {this.state.modal && <Modal />}
-        <Header title="Form Page" />
         <form ref={this.form} className={styles.form}>
           <FormField
             type="text"
