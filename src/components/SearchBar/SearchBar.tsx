@@ -1,36 +1,30 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 
-type PropType = Record<string, never>;
-type StateType = { value: string };
-class SearchBar extends Component<PropType, StateType> {
-  constructor(props: PropType) {
-    super(props);
-    this.state = { value: localStorage.getItem('value') ? localStorage.getItem('value')! : '' };
-  }
+const SearchBar = () => {
+  const [input, setInput] = useState(
+    localStorage.getItem('value') ? localStorage.getItem('value')! : ''
+  );
 
-  componentWillUnmount(): void {
-    localStorage.setItem('value', this.state.value);
-  }
+  useEffect(() => {
+    console.log('useEffect');
+    return () => {
+      console.log('useEffectReset');
+      localStorage.setItem('value', input);
+    };
+  }, [input]);
 
-  handleFocus = (e: React.FocusEvent<HTMLInputElement>): void => {
-    console.log(e.currentTarget);
-  };
+  console.log('render');
 
-  render() {
-    return (
-      <input
-        type="text"
-        name="text"
-        placeholder="input"
-        onFocus={this.handleFocus}
-        defaultValue={this.state.value}
-        onChange={(e) => {
-          this.setState({ value: e.target.value });
-          console.log(this.state.value);
-        }}
-      />
-    );
-  }
-}
+  return (
+    <input
+      type="text"
+      name="text"
+      value={input}
+      onChange={(e) => {
+        setInput(e.target.value);
+      }}
+    />
+  );
+};
 
 export default SearchBar;

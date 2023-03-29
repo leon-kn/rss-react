@@ -1,4 +1,18 @@
-.cards {
+.container {
+  padding: 10px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin: 15px auto;
+
+}
+
+.cards {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }

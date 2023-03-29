@@ -3,21 +3,29 @@
   justify-content: space-around;
   align-items: center;
   border-bottom: 1px solid grey;
+  height: 80px;
 }
 
-.header__title {  
+.header__title {
+  color: rgb(230, 152, 42);
 }
 
 .navbar {
-  /* display: flex; */
-  /* list-style: none; */
+  display: flex;
+  list-style: none;
   padding: 0;
+  max-width: 250px;
 }
 
-.navbar__item {}
+.navbar__item {
+  margin: 10px;
+  font-weight: 700;
+}
 
-.navbar__link {}
+.navbar__link {
+  text-decoration: none;
+}
 
 .navbar__link.active {
-  color: red;
+  color: rgb(230, 152, 42);
 }

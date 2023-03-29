@@ -5,8 +5,8 @@ import styles from './HomePage.module.css';
 
 const HomePage = () => {
   return (
-    <div>
-      <h2>Home Page</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Home Page</h2>
       <SearchBar />
       <div className={styles.cards}>
         {data.products.map((card) => (

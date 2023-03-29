@@ -60,7 +60,7 @@ const data: { products: ProductItem[] } = {
     },
     {
       id: 10,
-      title: 'HP Pavilion 15-DK1056WM',
+      title: 'HP Pavilion',
       description:
         'HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10',
       thumbnail: 'https://i.dummyjson.com/data/products/10/thumbnail.jpeg',
@@ -80,13 +80,13 @@ const data: { products: ProductItem[] } = {
     },
     {
       id: 13,
-      title: 'Fog Scent Xpressio Perfume',
+      title: 'Fog Scent Perfume',
       description: 'Product details of Best Fog Scent Xpressio Perfume 100ml',
       thumbnail: 'https://i.dummyjson.com/data/products/13/thumbnail.webp',
     },
     {
       id: 14,
-      title: 'Non-Alcoholic Concentrated Perfume Oil',
+      title: 'Perfume Oil',
       description:
         'Original Al Munakh® by Mahal Al Musk | Our Impression of Climate | 6ml Non-Alcoholic Concentrated Perfume Oil',
       thumbnail: 'https://i.dummyjson.com/data/products/14/thumbnail.jpg',
