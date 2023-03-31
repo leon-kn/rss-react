@@ -1,166 +1,153 @@
-import React, { SyntheticEvent } from 'react';
-import { Component } from 'react';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import FormCard from 'src/components/FormCard/FormCard';
-import FormField from 'src/components/Form/FormField';
-import { FormItem } from 'src/types/FormItem';
-import FormSelector from 'src/components/Form/FormSelector';
-import FormSwitcher from 'src/components/Form/FormSwitcher';
 import Modal from 'src/components/Modal';
-import { validateCountry } from 'src/helpers/validateCountry';
-import { validateDate } from 'src/helpers/validateDate';
-import { validateFile } from 'src/helpers/validateFile';
-import { validateGender } from 'src/helpers/validateGender';
-import { validateName } from 'src/helpers/validateName';
-import { validatePermission } from 'src/helpers/validatePermission';
+import { FormItem } from 'src/types/FormItem';
 import styles from './FormPage.module.css';
 
-type PropsType = Record<string, never>;
-interface StateType {
-  cards: FormItem[];
-  errorName: string;
-  errorDate: string;
-  errorSelector: string;
-  errorCheckbox: string;
-  errorSwitcher: string;
-  errorFile: string;
-  modal: boolean;
+interface dataType extends FormItem {
+  permission: boolean;
 }
-type InputRef = React.RefObject<HTMLInputElement>;
 
-class FormPage extends Component<PropsType, StateType> {
-  private inputText: InputRef;
-  private inputDate: InputRef;
-  private inputSelector: React.RefObject<HTMLSelectElement>;
-  private inputCheckbox: InputRef;
-  private inputSwitchMale: InputRef;
-  private inputSwitchFemale: InputRef;
-  private inputFile: InputRef;
-  private form: React.RefObject<HTMLFormElement>;
+const FormPage = () => {
+  const [cards, setCards] = useState<FormItem[]>([]);
+  const [modal, setModal] = useState<boolean>(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<dataType>({ mode: 'onChange' });
 
-  constructor(props: PropsType) {
-    super(props);
-    this.state = {
-      cards: [],
-      errorName: '',
-      errorDate: '',
-      errorSelector: '',
-      errorCheckbox: '',
-      errorSwitcher: '',
-      errorFile: '',
-      modal: false,
-    };
-    this.form = React.createRef();
-    this.inputText = React.createRef();
-    this.inputDate = React.createRef();
-    this.inputSelector = React.createRef();
-    this.inputCheckbox = React.createRef();
-    this.inputSwitchMale = React.createRef();
-    this.inputSwitchFemale = React.createRef();
-    this.inputFile = React.createRef();
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(e: SyntheticEvent) {
-    e.preventDefault();
-    const name = validateName<StateType>(this.inputText.current!.value, this.setState.bind(this));
-    const date = validateDate<StateType>(this.inputDate.current!.value, this.setState.bind(this));
-    const country = validateCountry<StateType>(
-      this.inputSelector.current!.value,
-      this.setState.bind(this)
-    );
-
-    const permission = validatePermission<StateType>(
-      this.inputCheckbox.current!.checked,
-      this.setState.bind(this)
-    );
-
-    const gender = validateGender<StateType>(
-      this.inputSwitchMale.current!.checked,
-      this.inputSwitchFemale.current!.checked,
-      this.setState.bind(this)
-    );
-
-    const file = validateFile<StateType>(this.inputFile.current!.files!, this.setState.bind(this));
-
+  const onSubmit: SubmitHandler<dataType> = (data) => {
     const card = {
-      name: this.inputText.current!.value,
-      birthday: this.inputDate.current!.value,
-      country: this.inputSelector.current!.value,
-      gender: this.inputSwitchMale.current!.checked ? 'Male' : 'Female',
-      avatar: this.inputFile.current!.files![0],
+      name: data.name,
+      birthday: data.birthday,
+      country: data.country,
+      gender: data.gender,
+      avatar: data.avatar[0 as keyof typeof data.avatar],
     };
-    console.log(this.inputFile.current!.files![0]);
-
-    if (name && date && country && permission && gender && file) {
-      this.setState((prevState) => ({
-        cards: [...prevState.cards, card],
-        modal: true,
-      }));
-    }
-    this.form.current?.reset();
+    console.log(card);
+    setCards([...cards, card]);
+    setModal(true);
+    reset();
     setTimeout(() => {
-      this.setState({ modal: false });
+      setModal(false);
     }, 2000);
-  }
+  };
 
-  render() {
-    return (
-      <div>
-        {this.state.modal && <Modal />}
-        <form ref={this.form} className={styles.form}>
-          <FormField
+  return (
+    <div className={styles.container}>
+      {modal && <Modal />}
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <label>
+          Name:
+          <input
             type="text"
-            id="inputText"
-            name="name"
-            label="Name:"
-            elementRef={this.inputText}
-            error={this.state.errorName}
+            {...register('name', {
+              required: 'The name is required field',
+              minLength: {
+                value: 4,
+                message: 'The name should consist of more than 3 letters',
+              },
+              maxLength: {
+                value: 12,
+                message: 'The name should consist of less than 12 letters',
+              },
+              pattern: {
+                value: /^[A-Z]/,
+                message: 'First letter should be capitalize',
+              },
+            })}
           />
-          <FormField
+        </label>
+        <div style={{ color: 'red' }}>{errors?.name?.message}</div>
+        <label>
+          Birthday:
+          <input
             type="date"
-            id="inputDate"
-            name="date"
-            label="Birthday:"
-            elementRef={this.inputDate}
-            error={this.state.errorDate}
+            {...register('birthday', {
+              required: 'The birthday is required field',
+              pattern: {
+                value:
+                  /(190[7-9]|19[1-9][0-9]|200[0-7])-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])/,
+                message: 'Date should be between 1907 and 2007',
+              },
+            })}
           />
-          <FormSelector elementRef={this.inputSelector} error={this.state.errorSelector} />
-          <FormField
+        </label>
+        <div style={{ color: 'red' }}>{errors?.birthday?.message?.toString()}</div>
+        <label>
+          Country:
+          <select
+            {...register('country', {
+              required: 'You must choose a country',
+            })}
+          >
+            <option value="" hidden>
+              Choose your country
+            </option>
+            <option value="Canada">Canada</option>
+            <option value="France">France</option>
+            <option value="Italy">Italy</option>
+            <option value="Russia">Russia</option>
+            <option value="USA">USA</option>
+          </select>
+        </label>
+        <div style={{ color: 'red' }}>{errors?.country?.message?.toString()}</div>
+        <label>
+          I consent to my personal data:
+          <input
             type="checkbox"
-            id="inputCheckbox"
-            name="consent"
-            label="I consent to my personal data"
-            elementRef={this.inputCheckbox}
-            error={this.state.errorCheckbox}
+            {...register('permission', {
+              required: 'You must consent to the personal data',
+            })}
           />
-          <FormSwitcher
-            type="radio"
-            name="gender"
-            firstValue="Male"
-            secondValue="Female"
-            legend="Specify your gender:"
-            elementRefMale={this.inputSwitchMale}
-            elementRefFemale={this.inputSwitchFemale}
-            error={this.state.errorSwitcher}
-          />
-          <FormField
+        </label>
+        <div style={{ color: 'red' }}>{errors?.permission?.message?.toString()}</div>
+        <legend>
+          <span>Specify your gender:</span>
+          <label>
+            Male
+            <input
+              type="radio"
+              {...register('gender', {
+                required: 'You must specify your gender',
+              })}
+              value="male"
+            />
+          </label>
+          <label>
+            Female
+            <input
+              type="radio"
+              {...register('gender', {
+                required: 'You must specify your gender',
+              })}
+              value="female"
+            />
+          </label>
+        </legend>
+        <div style={{ color: 'red' }}>{errors?.gender?.message?.toString()}</div>
+        <label>
+          Add your avatar:
+          <input
             type="file"
-            id="inputFile"
-            name="avatar"
-            label="Upload your avatar"
-            elementRef={this.inputFile}
-            error={this.state.errorFile}
+            {...register('avatar', {
+              required: 'You have to add a file',
+            })}
           />
-          <input type="submit" value="Submit" onClick={this.handleSubmit} />
-        </form>
-        <div className={styles.cards}>
-          {this.state.cards.map((card, index) => (
-            <FormCard key={index} {...card} />
-          ))}
-        </div>
+        </label>
+        <div style={{ color: 'red' }}>{errors?.avatar?.message?.toString()}</div>
+        <button>Submit</button>
+      </form>
+      <div className={styles.cards}>
+        {cards.map((card, index) => (
+          <FormCard key={index} {...card} />
+        ))}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default FormPage;
