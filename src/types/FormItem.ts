@@ -4,4 +4,5 @@ export interface FormItem {
   country: string;
   gender: string;
   avatar: Blob | MediaSource;
+  permission: boolean;
 }

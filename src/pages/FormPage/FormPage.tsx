@@ -5,10 +5,6 @@ import Modal from 'src/components/Modal';
 import { FormItem } from 'src/types/FormItem';
 import styles from './FormPage.module.css';
 
-interface dataType extends FormItem {
-  permission: boolean;
-}
-
 const FormPage = () => {
   const [cards, setCards] = useState<FormItem[]>([]);
   const [modal, setModal] = useState<boolean>(false);
@@ -17,15 +13,16 @@ const FormPage = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<dataType>({ mode: 'onChange' });
+  } = useForm<FormItem>({ mode: 'onChange' });
 
-  const onSubmit: SubmitHandler<dataType> = (data) => {
+  const onSubmit: SubmitHandler<FormItem> = (data) => {
     const card = {
       name: data.name,
       birthday: data.birthday,
       country: data.country,
       gender: data.gender,
       avatar: data.avatar[0 as keyof typeof data.avatar],
+      permission: true,
     };
     console.log(card);
     setCards([...cards, card]);
