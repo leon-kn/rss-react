@@ -1,27 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const SearchBar = () => {
-  const [input, setInput] = useState(
-    localStorage.getItem('value') ? localStorage.getItem('value')! : ''
-  );
+  const [input, setInput] = useState(localStorage.getItem('value') || '');
+  const inputRef = useRef(input);
+
+  const setInputValue = (value: string) => {
+    setInput(value);
+    inputRef.current = value;
+  };
 
   useEffect(() => {
-    console.log('useEffect');
     return () => {
-      console.log('useEffectReset');
-      localStorage.setItem('value', input);
+      localStorage.setItem('value', inputRef.current);
     };
-  }, [input]);
-
-  console.log('render');
+  }, []);
 
   return (
     <input
       type="text"
       name="text"
-      value={input}
+      defaultValue={input}
+      placeholder="Search field"
       onChange={(e) => {
-        setInput(e.target.value);
+        setInputValue(e.currentTarget.value);
       }}
     />
   );
