@@ -1,3 +1,3 @@
-import FilmsApi from './FilmsApi';
+import RickApi from './RickApi';
 
-export const HomeApi = new FilmsApi();
+export const HomeApi = new RickApi();

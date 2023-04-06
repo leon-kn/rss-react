@@ -1,4 +1,4 @@
 export enum ApiEndpoints {
-  BaseUrl = 'https://kinopoiskapiunofficial.tech/api/v2.2',
-  TopFilms = '/films/top',
+  BaseUrl = 'https://rickandmortyapi.com/api',
+  Character = '/character',
 }
