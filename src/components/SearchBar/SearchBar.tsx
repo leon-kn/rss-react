@@ -1,13 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { useEffect, useRef } from 'react';
+import { HomeApi } from 'src/api';
+import { CharacterItem } from 'src/types/CharacterItem';
 
-const SearchBar = () => {
-  const [input, setInput] = useState(localStorage.getItem('value') || '');
-  const inputRef = useRef(input);
+interface ISearchBar {
+  inputValue: string;
+  setInput: React.Dispatch<React.SetStateAction<string>>;
+  setCharacters: React.Dispatch<React.SetStateAction<CharacterItem[]>>;
+}
 
-  const setInputValue = (value: string) => {
-    setInput(value);
-    inputRef.current = value;
-  };
+const SearchBar = ({ inputValue, setCharacters }: ISearchBar) => {
+  const inputRef = useRef(inputValue);
 
   useEffect(() => {
     return () => {
@@ -15,15 +18,24 @@ const SearchBar = () => {
     };
   }, []);
 
+  const handleRequest = (key: string, value: string) => {
+    if (key === 'Enter') {
+      inputRef.current = value;
+      if (inputRef.current) {
+        HomeApi.searchCharacters(inputRef.current).then((data) => setCharacters(data));
+      } else {
+        HomeApi.getAllCharacters().then((data) => setCharacters(data));
+      }
+    }
+  };
+
   return (
     <input
       type="text"
       name="text"
-      defaultValue={input}
+      defaultValue={inputValue}
       placeholder="Search field"
-      onChange={(e) => {
-        setInputValue(e.currentTarget.value);
-      }}
+      onKeyDown={(e) => handleRequest(e.key, e.currentTarget.value)}
     />
   );
 };

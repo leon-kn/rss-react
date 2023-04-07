@@ -24,7 +24,6 @@ const FormPage = () => {
       avatar: data.avatar[0 as keyof typeof data.avatar],
       permission: true,
     };
-    console.log(card);
     setCards([...cards, card]);
     setModal(true);
     reset();
