@@ -8,7 +8,7 @@ type ICharacterResponse = CharacterItem[];
 
 interface IRickApi {
   getAllCharacters(): Promise<ICharacterResponse>;
-  // getCharacter(id: number): Promise<CharacterItem>;
+  getCharacter(id: number): Promise<CharacterItem>;
   searchCharacters(name: string): Promise<ICharacterResponse | CharacterItem>;
 }
 
@@ -33,5 +33,12 @@ export default class RickApi extends BaseApi implements IRickApi {
     } catch {
       return [];
     }
+  }
+
+  async getCharacter(id: number) {
+    try {
+      const response = await this.instance.get(`${ApiEndpoints.Character}/${id}`);
+      return response.data;
+    } catch {}
   }
 }

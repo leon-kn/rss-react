@@ -1,20 +1,8 @@
-import { CharacterItem } from 'src/types/CharacterItem';
-import styles from './Card.module.css';
-import { HomeApi } from 'src/api';
+import styles from './ModalCard.module.css';
 
-interface ICard extends CharacterItem {
-  setCharacter: React.Dispatch<React.SetStateAction<CharacterItem | null>>;
-}
-
-const Card = ({ id, name, status, species, image, location, origin, setCharacter }: ICard) => {
-  const handleClick = () => {
-    HomeApi.getCharacter(id).then((data) => {
-      setCharacter(data);
-    });
-  };
-
+const ModalCard = () => {
   return (
-    <div className={styles.card} onClick={handleClick}>
+    <div className={styles.card}>
       <img className={styles.card__image} src={image} alt="thumbnail" />
       <h4 className={styles.card__title}>{name}</h4>
       <p className={styles.card__description}>
@@ -37,4 +25,4 @@ const Card = ({ id, name, status, species, image, location, origin, setCharacter
   );
 };
 
-export default Card;
+export default ModalCard;

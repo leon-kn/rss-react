@@ -9,6 +9,7 @@ import loader from 'src/assets/loading.gif';
 const HomePage = () => {
   const [input, setInput] = useState<string>(localStorage.getItem('value') || '');
   const [characters, setCharacters] = useState<CharacterItem[]>([]);
+  const [character, setCharacter] = useState<CharacterItem | null>(null);
   const [isFetching, setIsFetching] = useState<boolean>(true);
 
   useEffect(() => {
@@ -36,7 +37,9 @@ const HomePage = () => {
       />
       <div className={styles.cards}>
         {characters.length ? (
-          characters.map((character) => <Card key={character.id} {...character} />)
+          characters.map((character) => (
+            <Card key={character.id} {...character} setCharacter={setCharacter} />
+          ))
         ) : isFetching ? (
           <img src={loader} />
         ) : (
