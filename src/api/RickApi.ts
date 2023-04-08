@@ -18,7 +18,7 @@ export default class RickApi extends BaseApi implements IRickApi {
       const response = await this.instance.get(ApiEndpoints.Character);
       return response.data.results;
     } catch {
-      console.error();
+      throw new Error('Characters are not found');
     }
   }
 
@@ -39,6 +39,8 @@ export default class RickApi extends BaseApi implements IRickApi {
     try {
       const response = await this.instance.get(`${ApiEndpoints.Character}/${id}`);
       return response.data;
-    } catch {}
+    } catch {
+      throw new Error('Single character is not found');
+    }
   }
 }

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { HomeApi } from 'src/api';
 import { CharacterItem } from 'src/types/CharacterItem';
 import loader from 'src/assets/loading.gif';
+import ModalCard from 'src/components/ModalCard/ModalCard';
 
 const HomePage = () => {
   const [input, setInput] = useState<string>(localStorage.getItem('value') || '');
@@ -46,6 +47,7 @@ const HomePage = () => {
           <h1>Characters are not found</h1>
         )}
       </div>
+      {character ? <ModalCard {...character} setCharacter={setCharacter} /> : null}
     </div>
   );
 };
