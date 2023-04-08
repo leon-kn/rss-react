@@ -7,9 +7,10 @@ interface ISearchBar {
   inputValue: string;
   setInput: React.Dispatch<React.SetStateAction<string>>;
   setCharacters: React.Dispatch<React.SetStateAction<CharacterItem[]>>;
+  setIsFetching: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SearchBar = ({ inputValue, setCharacters }: ISearchBar) => {
+const SearchBar = ({ inputValue, setCharacters, setIsFetching }: ISearchBar) => {
   const inputRef = useRef(inputValue);
 
   useEffect(() => {
@@ -22,9 +23,17 @@ const SearchBar = ({ inputValue, setCharacters }: ISearchBar) => {
     if (key === 'Enter') {
       inputRef.current = value;
       if (inputRef.current) {
-        HomeApi.searchCharacters(inputRef.current).then((data) => setCharacters(data));
+        setIsFetching(true);
+        HomeApi.searchCharacters(inputRef.current).then((data) => {
+          setIsFetching(false);
+          setCharacters(data);
+        });
       } else {
-        HomeApi.getAllCharacters().then((data) => setCharacters(data));
+        setIsFetching(true);
+        HomeApi.getAllCharacters().then((data) => {
+          setIsFetching(false);
+          setCharacters(data);
+        });
       }
     }
   };

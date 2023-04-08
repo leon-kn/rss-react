@@ -9,5 +9,3 @@ export default class BaseApi {
     });
   }
 }
-
-// Access token: c93bdcd2-f64b-40ea-b784-0ccd0c3e53b3
