@@ -2,7 +2,10 @@ import { CharacterItem } from 'src/types/CharacterItem';
 import styles from './Card.module.css';
 import { HomeApi } from 'src/api';
 
-interface ICard extends CharacterItem {
+interface ICard {
+  id: number;
+  name: string;
+  image: string;
   setCharacter: React.Dispatch<React.SetStateAction<CharacterItem | null>>;
 }
 

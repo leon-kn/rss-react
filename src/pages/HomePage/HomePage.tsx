@@ -39,7 +39,13 @@ const HomePage = () => {
       <div className={styles.cards}>
         {characters.length ? (
           characters.map((character) => (
-            <Card key={character.id} {...character} setCharacter={setCharacter} />
+            <Card
+              key={character.id}
+              id={character.id}
+              name={character.name}
+              image={character.image}
+              setCharacter={setCharacter}
+            />
           ))
         ) : isFetching ? (
           <img src={loader} />
