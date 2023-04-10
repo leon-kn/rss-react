@@ -38,12 +38,18 @@ const SearchBar = ({ inputValue, setCharacters, setIsFetching }: ISearchBar) => 
     }
   };
 
+  const handleClick = (value: string) => {
+    inputRef.current = value;
+    localStorage.setItem('value', inputRef.current);
+  };
+
   return (
     <input
       type="text"
       name="text"
       defaultValue={inputValue}
       placeholder="Search field"
+      onChange={(e) => handleClick(e.target.value)}
       onKeyDown={(e) => handleRequest(e.key, e.currentTarget.value)}
     />
   );
