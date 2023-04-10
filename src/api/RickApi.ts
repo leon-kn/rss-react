@@ -2,7 +2,6 @@ import { ApiEndpoints } from 'src/enum/ApiEndpoints';
 import BaseApi from './BaseApi';
 import { CharacterItem } from 'src/types/CharacterItem';
 import { RickQueryParams } from 'src/enum/RickQueryParams';
-// import { RickQueryParams } from 'src/enum/RickQueryParams';
 
 type ICharacterResponse = CharacterItem[];
 

@@ -1,16 +1,18 @@
 import { render, screen } from '@testing-library/react';
-import { vi } from 'vitest';
 import FormCard from './FormCard';
+import { vi } from 'vitest';
 
 const card = {
   name: 'John',
   birthday: '11-11-1991',
   country: 'France',
   gender: 'Male',
-  avatar: (window.URL.createObjectURL = vi.fn()),
+  avatar: new Blob(),
+  permission: true,
 };
 
 test('should show card', () => {
+  window.URL.createObjectURL = vi.fn();
   render(<FormCard {...card} />);
   expect(screen.getByText('Name: John'));
 });
