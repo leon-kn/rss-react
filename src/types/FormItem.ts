@@ -3,6 +3,6 @@ export interface FormItem {
   birthday: string;
   country: string;
   gender: string;
-  avatar: Blob | MediaSource;
+  avatar: string;
   permission: boolean;
 }

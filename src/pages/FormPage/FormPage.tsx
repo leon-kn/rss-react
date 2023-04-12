@@ -1,34 +1,48 @@
-import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import FormCard from 'src/components/FormCard/FormCard';
 import Modal from 'src/components/Modal';
-import { FormItem } from 'src/types/FormItem';
 import styles from './FormPage.module.css';
+import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
+import { addFormItem, setModal } from 'src/store/reducers/FormSlice';
+
+interface FormData {
+  name: string;
+  birthday: string;
+  country: string;
+  gender: string;
+  avatar: File[];
+  permission: boolean;
+}
 
 const FormPage = () => {
-  const [cards, setCards] = useState<FormItem[]>([]);
-  const [modal, setModal] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const { formItems, modal } = useAppSelector((state) => state.formReducer);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormItem>({ mode: 'onChange' });
+  } = useForm<FormData>({ mode: 'onChange' });
 
-  const onSubmit: SubmitHandler<FormItem> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data.avatar);
+    console.log(data.avatar[0]);
+    console.log(URL.createObjectURL(data.avatar[0]));
+    const avatarData = data.avatar[0];
+    const avatar = URL.createObjectURL(avatarData);
     const card = {
       name: data.name,
       birthday: data.birthday,
       country: data.country,
       gender: data.gender,
-      avatar: data.avatar[0 as keyof typeof data.avatar],
+      avatar: avatar,
       permission: true,
     };
-    setCards([...cards, card]);
-    setModal(true);
+    dispatch(addFormItem(card));
+    dispatch(setModal(true));
     reset();
     setTimeout(() => {
-      setModal(false);
+      dispatch(setModal(false));
     }, 2000);
   };
 
@@ -138,7 +152,7 @@ const FormPage = () => {
         <button>Submit</button>
       </form>
       <div className={styles.cards}>
-        {cards.map((card, index) => (
+        {formItems.map((card, index) => (
           <FormCard key={index} {...card} />
         ))}
       </div>

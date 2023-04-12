@@ -1,17 +1,19 @@
 import React from 'react';
 import { useEffect, useRef } from 'react';
 import { HomeApi } from 'src/api';
+import { useAppDispatch } from 'src/hooks/redux';
+import { setIsFetch } from 'src/store/reducers/CharacterSlice';
 import { CharacterItem } from 'src/types/CharacterItem';
 
 interface ISearchBar {
   inputValue: string;
   setInput: React.Dispatch<React.SetStateAction<string>>;
   setCharacters: React.Dispatch<React.SetStateAction<CharacterItem[]>>;
-  setIsFetching: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SearchBar = ({ inputValue, setCharacters, setIsFetching }: ISearchBar) => {
+const SearchBar = ({ inputValue, setCharacters }: ISearchBar) => {
   const inputRef = useRef(inputValue);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     return () => {
@@ -23,15 +25,16 @@ const SearchBar = ({ inputValue, setCharacters, setIsFetching }: ISearchBar) => 
     if (key === 'Enter') {
       inputRef.current = value;
       if (inputRef.current) {
-        setIsFetching(true);
+        dispatch(setIsFetch(true));
         HomeApi.searchCharacters(inputRef.current).then((data) => {
-          setIsFetching(false);
+          dispatch(setIsFetch(false));
           setCharacters(data);
+          console.log('then');
         });
       } else {
-        setIsFetching(true);
+        dispatch(setIsFetch(true));
         HomeApi.getAllCharacters().then((data) => {
-          setIsFetching(false);
+          dispatch(setIsFetch(false));
           setCharacters(data);
         });
       }
