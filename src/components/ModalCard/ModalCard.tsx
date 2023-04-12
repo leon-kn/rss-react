@@ -1,23 +1,15 @@
 import { CharacterItem } from 'src/types/CharacterItem';
 import styles from './ModalCard.module.css';
-import closer from 'src/assets/closer.jpg';
+import closer from 'src/static/closer.jpg';
+import { useAppDispatch } from 'src/hooks/redux';
+import { setModal } from 'src/store/reducers/CharacterSlice';
 
-interface IModalCard extends CharacterItem {
-  setCharacter: React.Dispatch<React.SetStateAction<CharacterItem | null>>;
-}
+const ModalCard = ({ name, image, species, location, origin, status }: CharacterItem) => {
+  const dispatch = useAppDispatch();
 
-const ModalCard = ({
-  name,
-  image,
-  species,
-  location,
-  origin,
-  status,
-  setCharacter,
-}: IModalCard) => {
   const handleClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (event.target === event.currentTarget) {
-      setCharacter(null);
+      dispatch(setModal(false));
     }
   };
 

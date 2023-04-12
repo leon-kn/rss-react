@@ -16,7 +16,7 @@ interface FormData {
 
 const FormPage = () => {
   const dispatch = useAppDispatch();
-  const { formItems, modal } = useAppSelector((state) => state.formReducer);
+  const { formItems, isPopupOpen } = useAppSelector((state) => state.formReducer);
   const {
     register,
     handleSubmit,
@@ -48,7 +48,7 @@ const FormPage = () => {
 
   return (
     <div className={styles.container}>
-      {modal && <Modal />}
+      {isPopupOpen && <Modal />}
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <label>
           Name:

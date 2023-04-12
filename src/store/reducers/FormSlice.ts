@@ -3,12 +3,12 @@ import { FormItem } from 'src/types/FormItem';
 
 interface FormState {
   formItems: FormItem[];
-  modal: boolean;
+  isPopupOpen: boolean;
 }
 
 const initialState: FormState = {
   formItems: [],
-  modal: false,
+  isPopupOpen: false,
 };
 
 const FormSlice = createSlice({
@@ -19,7 +19,7 @@ const FormSlice = createSlice({
       state.formItems.push(payload);
     },
     setModal(state, { payload }: PayloadAction<boolean>) {
-      state.modal = payload;
+      state.isPopupOpen = payload;
     },
   },
 });

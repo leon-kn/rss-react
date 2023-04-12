@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppRoutes } from 'src/enum/AppRoutes';
-import Layout from 'src/layout/Layout';
+import Layout from 'src/components/Layout';
 import AboutPage from 'src/pages/AboutPage';
 import FormPage from 'src/pages/FormPage';
 import HomePage from 'src/pages/HomePage';

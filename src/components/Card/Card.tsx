@@ -1,19 +1,15 @@
-import { CharacterItem } from 'src/types/CharacterItem';
+import { fetchCharacterThunk } from 'src/store/reducers/thunks';
 import styles from './Card.module.css';
-import { HomeApi } from 'src/api';
 
 interface ICard {
   id: number;
   name: string;
   image: string;
-  setCharacter: React.Dispatch<React.SetStateAction<CharacterItem | null>>;
 }
 
-const Card = ({ id, name, image, setCharacter }: ICard) => {
+const Card = ({ id, name, image }: ICard) => {
   const handleClick = () => {
-    HomeApi.getCharacter(id).then((data) => {
-      setCharacter(data);
-    });
+    fetchCharacterThunk(id);
   };
 
   return (
