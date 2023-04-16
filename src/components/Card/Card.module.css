@@ -1,0 +1,20 @@
+.card {
+  border: 2px solid black;
+  width: 270px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card__title {
+  text-align: center;
+  margin: 10px;
+  color:rgb(230, 152, 42);
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.card__image {
+  width: 270px;
+}
