@@ -7,7 +7,7 @@ const card = {
   birthday: '11-11-1991',
   country: 'France',
   gender: 'Male',
-  avatar: new Blob(),
+  avatar: 'https//img.com/avatar',
   permission: true,
 };
 

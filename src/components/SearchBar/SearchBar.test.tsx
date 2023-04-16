@@ -1,15 +1,24 @@
-import { it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import SearchBar from './SearchBar';
+import store from 'src/store';
+import { fireEvent, render } from '@testing-library/react';
+import { setInput } from 'src/store/reducers/CharacterSlice';
+import { spyOn } from 'jest-mock';
 
-const mock = {
-  inputValue: 'string',
-  setInput: vi.fn(),
-  setCharacters: vi.fn(),
-  setIsFetching: vi.fn(),
-};
+describe('SearchBar component', () => {
+  it('dispatches the correct action on input change', () => {
+    const dispatch = spyOn(store, 'dispatch');
+    const { getByPlaceholderText } = render(
+      <Provider store={store}>
+        <SearchBar />
+      </Provider>
+    );
 
-it('should show search bar', () => {
-  render(<SearchBar {...mock} />);
-  expect(screen.getByRole('textbox'));
+    const input = getByPlaceholderText('Search field') as HTMLInputElement;
+    const inputValue = 'test input value';
+
+    fireEvent.change(input, { target: { value: inputValue } });
+
+    expect(dispatch).toHaveBeenCalledWith(setInput(inputValue));
+  });
 });
