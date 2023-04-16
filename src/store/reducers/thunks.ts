@@ -1,31 +1,12 @@
 import { HomeApi } from 'src/api';
 import { AppDispatch } from '..';
-import {
-  characterFetching,
-  charactersFetching,
-  charactersFetchingError,
-  charactersFetchingSuccess,
-} from './CharacterSlice';
-
-export const fetchCharactersThunk = (name: string) => async (dispatch: AppDispatch) => {
-  console.log('thunk');
-  try {
-    dispatch(charactersFetching);
-    let response = [];
-    if (name) {
-      response = await HomeApi.searchCharacters(name);
-    } else {
-      response = await HomeApi.getAllCharacters();
-    }
-    dispatch(charactersFetchingSuccess(response));
-  } catch {
-    dispatch(charactersFetchingError([]));
-  }
-};
+import { characterFetching } from './CharacterSlice';
 
 export const fetchCharacterThunk = (id: number) => async (dispatch: AppDispatch) => {
   try {
+    console.log('thunk');
     const response = await HomeApi.getCharacter(id);
+    console.log(response);
     dispatch(characterFetching(response));
   } catch {}
 };

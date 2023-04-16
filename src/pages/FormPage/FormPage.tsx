@@ -25,9 +25,6 @@ const FormPage = () => {
   } = useForm<FormData>({ mode: 'onChange' });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data.avatar);
-    console.log(data.avatar[0]);
-    console.log(URL.createObjectURL(data.avatar[0]));
     const avatarData = data.avatar[0];
     const avatar = URL.createObjectURL(avatarData);
     const card = {

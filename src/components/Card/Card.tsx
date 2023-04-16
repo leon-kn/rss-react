@@ -1,5 +1,7 @@
 import { fetchCharacterThunk } from 'src/store/reducers/thunks';
+import { FC } from 'react';
 import styles from './Card.module.css';
+import { useAppDispatch } from 'src/hooks/redux';
 
 interface ICard {
   id: number;
@@ -7,9 +9,10 @@ interface ICard {
   image: string;
 }
 
-const Card = ({ id, name, image }: ICard) => {
+const Card: FC<ICard> = ({ id, name, image }) => {
+  const dispatch = useAppDispatch();
   const handleClick = () => {
-    fetchCharacterThunk(id);
+    dispatch(fetchCharacterThunk(id));
   };
 
   return (
